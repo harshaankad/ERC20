@@ -4,8 +4,8 @@ pragma solidity ^0.8.19;
 
 import {DeployOurToken} from "../script/DeployOurToken.s.sol";
 import {OurToken} from "../src/OurToken.sol";
-import {Test, console} from "forge-std/Test.sol";
-import {StdCheats} from "forge-std/StdCheats.sol";
+import {Test, console} from "lib/forge-std/src/Test.sol";
+import {StdCheats} from "lib/forge-std/src/StdCheats.sol";
 
 interface MintableToken {
     function mint(address, uint256) external;
@@ -21,15 +21,15 @@ contract OurTokenTest is StdCheats, Test {
     address alice;
 
     function setUp() public {
-        deployer = new DeployOurToken();
+        deployer = new DeployOurToken();//
         ourToken = deployer.run();
 
         bob = makeAddr("bob");
         alice = makeAddr("alice");
 
-        deployerAddress = vm.addr(deployer.deployerKey());
+        deployerAddress = vm.addr(deployer.deployerKey());//converting the deployerkey into address
         vm.prank(deployerAddress);
-        ourToken.transfer(bob, BOB_STARTING_AMOUNT);
+        ourToken.transfer(bob, BOB_STARTING_AMOUNT);//money is sent by owner that is deployer of contract to bob
     }
 
     function testInitialSupply() public {
@@ -44,7 +44,7 @@ contract OurTokenTest is StdCheats, Test {
     function testAllowances() public {
         uint256 initialAllowance = 1000;
 
-        // Alice approves Bob to spend tokens on her behalf
+        // bob approves alice to spend tokens on her behalf
         vm.prank(bob);
         ourToken.approve(alice, initialAllowance);
         uint256 transferAmount = 500;
