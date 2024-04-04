@@ -35,7 +35,7 @@ This is a section of the Cyfrin Foundry Solidity Course.
 ## Quickstart
 
 ```
-git clone https://github.com/Cyfrin/foundry-erc20-f23
+git clone https://github.com/harshaankad/foundry-erc20-f23
 cd foundry-erc20-f23
 forge install 
 forge build
